@@ -20,7 +20,7 @@ const StoreTemplate = ({
 
   return (
     <div
-      className="flex flex-col small:flex-row small:items-start min-h-[calc(100vh-7.313rem)] py-12 content-small-container"
+      className="flex flex-col small:flex-row small:items-start min-height content-small-container"
       data-testid="category-container"
     >
       {false && (<RefinementList sortBy={sort} />)}
