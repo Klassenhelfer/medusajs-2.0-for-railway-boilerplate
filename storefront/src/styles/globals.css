@@ -3,6 +3,36 @@
 @import "tailwindcss/utilities";
 
 @layer utilities {
+
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #414141 #e5e7eb;
+  }
+
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #5f82f6 #e5e7eb;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #e5e7eb;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #5f82f6;
+    border-radius: 100px;
+    border: -0.125rem none #ffffff;
+  }
+
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -52,6 +82,10 @@
 @layer components {
   .content-container {
     @apply max-w-[1440px] w-full mx-auto px-6;
+  }
+
+  .content-small-container {
+    @apply max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .contrast-btn {

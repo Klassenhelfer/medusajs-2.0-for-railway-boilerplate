@@ -1,70 +1,65 @@
-import { Suspense } from "react"
-
-import { listRegions } from "@lib/data/regions"
-import { StoreRegion } from "@medusajs/types"
+import {Suspense} from "react"
+import {listRegions} from "@lib/data/regions"
+import {StoreRegion} from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import ShopIcon from "@modules/common/icons/shop-logo"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 
 export default async function Nav() {
-  const regions = await listRegions().then((regions: StoreRegion[]) => regions)
+    const regions = await listRegions().then((regions: StoreRegion[]) => regions)
 
-  return (
-    <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
-          <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} />
-            </div>
-          </div>
-
-          <div className="flex items-center h-full">
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-              data-testid="nav-store-link"
-            >
-              Medusa Store
-            </LocalizedClientLink>
-          </div>
-
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
-              {process.env.NEXT_PUBLIC_FEATURE_SEARCH_ENABLED && (
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base"
-                  href="/search"
-                  scroll={false}
-                  data-testid="nav-search-link"
-                >
-                  Search
+    return (
+        <nav className="sticky left-0 top-0 w-full py-3 border-b bg-white z-50">
+            <div className="content-small-container flex justify-between gap-4">
+                <LocalizedClientLink href="/" data-testid="nav-store-link">
+                    <ShopIcon/>
                 </LocalizedClientLink>
-              )}
-              <LocalizedClientLink
-                className="hover:text-ui-fg-base"
-                href="/account"
-                data-testid="nav-account-link"
-              >
-                Account
-              </LocalizedClientLink>
+
+                <ul className="hidden md:flex gap-10">
+                    <li className="leading-8 text-[#333] hover:text-[#d97706] font-semibold">
+                        <LocalizedClientLink href="/" data-testid="nav-store-link">Startseite</LocalizedClientLink>
+                    </li>
+                    <li className="leading-8 text-[#f59e0b] font-semibold cursor-pointer">Arbeitsmaterialien</li>
+
+                    {process.env.NEXT_PUBLIC_FEATURE_SEARCH_ENABLED && (
+                        <LocalizedClientLink
+                            className="hover:text-ui-fg-base"
+                            href="/search"
+                            scroll={false}
+                            data-testid="nav-search-link"
+                        >
+                            Search
+                        </LocalizedClientLink>
+                    )}
+
+                    <li className="leading-8 text-[#333] font-semibold cursor-pointer">
+                        <LocalizedClientLink
+                            href="/account"
+                            data-testid="nav-account-link"
+                        >
+                            Account
+                        </LocalizedClientLink>
+                    </li>
+
+                    <Suspense
+                        fallback={
+                            <li className="leading-8 text-[#333] font-semibold cursor-pointer">
+                                <LocalizedClientLink
+                                    className="flex gap-2"
+                                    href="/cart"
+                                    data-testid="nav-cart-link"
+                                >
+                                    Cart (0)
+                                </LocalizedClientLink>
+                            </li>
+                        }
+                    >
+                        <CartButton/>
+                    </Suspense>
+                    <SideMenu regions={regions}/>
+                </ul>
             </div>
-            <Suspense
-              fallback={
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
-                  href="/cart"
-                  data-testid="nav-cart-link"
-                >
-                  Cart (0)
-                </LocalizedClientLink>
-              }
-            >
-              <CartButton />
-            </Suspense>
-          </div>
         </nav>
-      </header>
-    </div>
-  )
+    )
 }
