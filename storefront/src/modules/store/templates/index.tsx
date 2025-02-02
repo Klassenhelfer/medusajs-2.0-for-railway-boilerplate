@@ -23,7 +23,7 @@ const StoreTemplate = ({
       className="flex flex-col small:flex-row small:items-start min-height content-small-container"
       data-testid="category-container"
     >
-      {false && (<RefinementList sortBy={sort} />)}
+      {true && (<RefinementList sortBy={sort} />)}
       <div className="w-full">
         <h1 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-8">Alle Produkte</h1>
         <Suspense fallback={<SkeletonProductGrid />}>
