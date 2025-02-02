@@ -42,7 +42,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: process.env.NEXT_PUBLIC_MINIO_ENDPOINT,
+        hostname: process.env.NEXT_PUBLIC_MINIO_ENDPOINT?.replace("https://", ""),
       },
     ],
   },
