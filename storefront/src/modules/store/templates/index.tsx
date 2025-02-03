@@ -25,7 +25,9 @@ const StoreTemplate = ({
             data-testid="category-container"
         >
           <MegaDeal />
+
           <div className="flex gap-6 flex-col small:flex-row small:items-start">
+            <RefinementList sortBy={sort} />
             <Suspense fallback={<SkeletonProductGrid />}>
               <PaginatedProducts
                   sortBy={sort}

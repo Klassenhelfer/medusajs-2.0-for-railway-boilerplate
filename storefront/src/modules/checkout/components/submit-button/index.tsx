@@ -20,7 +20,7 @@ export function SubmitButton({
   return (
     <Button
       size="large"
-      className={className}
+      className={`bg-primary hover:bg-[#2563eb] font-semibold outline-[unset] shadow-none border-[unset] ${className}`}
       type="submit"
       isLoading={pending}
       variant={variant || "primary"}
