@@ -32,7 +32,7 @@ const InteractiveButton = ({
 
   return (
     <LocalizedClientLink
-        className={`relative w-44 font-semibold z-20 ${sizeClasses[size]} ${bgColor[color]} ${className}`}
+        className={`relative w-44 font-semibold z-20 text-center ${sizeClasses[size]} ${bgColor[color]} ${className}`}
         href={href}
         onClick={onClick}
         {...props}

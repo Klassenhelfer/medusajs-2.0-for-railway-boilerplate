@@ -5,6 +5,7 @@ import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
 import PaginatedProducts from "./paginated-products"
+import MegaDeal from "@modules/store/components/mega-deal";
 
 const StoreTemplate = ({
   sortBy,
@@ -19,22 +20,21 @@ const StoreTemplate = ({
   const sort = sortBy || "created_at"
 
   return (
-    <div
-      className="flex flex-col small:flex-row small:items-start min-height content-small-container"
-      data-testid="category-container"
-    >
-      {true && (<RefinementList sortBy={sort} />)}
-      <div className="w-full">
-        <h1 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-8">Alle Produkte</h1>
-        <Suspense fallback={<SkeletonProductGrid />}>
-          <PaginatedProducts
-            sortBy={sort}
-            page={pageNumber}
-            countryCode={countryCode}
-          />
-        </Suspense>
-      </div>
-    </div>
+        <div
+            className="content-small-container min-height"
+            data-testid="category-container"
+        >
+          <MegaDeal />
+          <div className="flex gap-6 flex-col small:flex-row small:items-start">
+            <Suspense fallback={<SkeletonProductGrid />}>
+              <PaginatedProducts
+                  sortBy={sort}
+                  page={pageNumber}
+                  countryCode={countryCode}
+              />
+            </Suspense>
+          </div>
+        </div>
   )
 }
 

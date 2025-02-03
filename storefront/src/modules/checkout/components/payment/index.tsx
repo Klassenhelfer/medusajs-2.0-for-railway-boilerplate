@@ -126,7 +126,7 @@ const Payment = ({
             }
           )}
         >
-          Payment
+          Zahlung
           {!isOpen && paymentReady && <CheckCircleSolid />}
         </Heading>
         {!isOpen && paymentReady && (
@@ -261,7 +261,7 @@ const Payment = ({
           ) : paidByGiftcard ? (
             <div className="flex flex-col w-1/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment method
+                Zahlungsmethode
               </Text>
               <Text
                 className="txt-medium text-ui-fg-subtle"

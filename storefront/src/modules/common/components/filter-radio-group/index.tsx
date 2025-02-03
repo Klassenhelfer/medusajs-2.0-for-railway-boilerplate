@@ -1,8 +1,7 @@
-import { EllipseMiniSolid } from "@medusajs/icons"
-import { Label, RadioGroup, Text, clx } from "@medusajs/ui"
+import {clx} from "@medusajs/ui"
+import Checkmark from "@modules/common/icons/checkmark";
 
 type FilterRadioGroupProps = {
-  title: string
   items: {
     value: string
     label: string
@@ -13,48 +12,48 @@ type FilterRadioGroupProps = {
 }
 
 const FilterRadioGroup = ({
-  title,
   items,
   value,
   handleChange,
   "data-testid": dataTestId,
 }: FilterRadioGroupProps) => {
-  return (
-    <div className="flex gap-x-3 flex-col gap-y-3">
-      <Text className="txt-compact-small-plus text-ui-fg-muted">{title}</Text>
-      <RadioGroup data-testid={dataTestId} onValueChange={handleChange}>
-        {items?.map((i) => (
-          <div
-            key={i.value}
-            className={clx("flex gap-x-2 items-center", {
-              "ml-[-23px]": i.value === value,
-            })}
-          >
-            {i.value === value && <EllipseMiniSolid />}
-            <RadioGroup.Item
-              checked={i.value === value}
-              className="hidden peer"
-              id={i.value}
-              value={i.value}
-            />
-            <Label
-              htmlFor={i.value}
-              className={clx(
-                "!txt-compact-small !transform-none text-ui-fg-subtle hover:cursor-pointer",
-                {
-                  "text-ui-fg-base": i.value === value,
-                }
-              )}
-              data-testid="radio-label"
-              data-active={i.value === value}
-            >
-              {i.label}
-            </Label>
-          </div>
-        ))}
-      </RadioGroup>
-    </div>
-  )
+    return (
+        <div className="relative flex flex-col gap-4 z-10">
+            <div className="flex flex-col gap-2">
+                {items.map((item) => (
+                    <button
+                        key={item.value}
+                        data-testid={`${dataTestId}-${item.value}`}
+                        onClick={() => handleChange(item.value)}
+                        className={clx(
+                            "w-full flex items-center gap-3 px-4 py-3 rounded-lg border",
+                            {
+                                "border-blue-500 bg-white text-blue-700":
+                                    item.value === value,
+                                "border-gray-300 bg-white text-gray-700 hover:bg-gray-50":
+                                    item.value !== value,
+                            }
+                        )}
+                    >
+                        <div
+                            className={clx(
+                                "w-5 h-5 flex items-center justify-center border rounded-[0.2rem]",
+                                {
+                                    "bg-blue-500 border-transparent text-white": item.value === value,
+                                    "bg-white border-gray-300 text-transparent": item.value !== value,
+                                }
+                            )}
+                        >
+                            {item.value === value && (
+                                <Checkmark/>
+                            )}
+                        </div>
+                        <span className="text-sm font-medium">{item.label}</span>
+                    </button>
+                ))}
+            </div>
+        </div>
+    )
 }
 
 export default FilterRadioGroup
