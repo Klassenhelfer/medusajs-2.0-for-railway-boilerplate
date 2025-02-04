@@ -136,7 +136,7 @@ const Payment = ({
               className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="edit-payment-button"
             >
-              Edit
+              Bearbeiten
             </button>
           </Text>
         )}
