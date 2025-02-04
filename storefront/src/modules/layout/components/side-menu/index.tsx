@@ -1,108 +1,68 @@
 "use client"
 
-import { Popover, Transition } from "@headlessui/react"
-import { ArrowRightMini, XMark } from "@medusajs/icons"
-import { Text, clx, useToggleState } from "@medusajs/ui"
-import { Fragment } from "react"
-
+import { useState } from "react"
+import SlideOver from "@modules/common/components/slideover"
+import Menu from "@modules/common/icons/menu"
+import Close from "@modules/common/icons/close"
+import CaretRight from "@modules/common/icons/caret-right"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import CountrySelect from "../country-select"
-import { HttpTypes } from "@medusajs/types"
+import NavLinkHighlighter from "@modules/layout/templates/nav/nav-link-highlighter"
 
-const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Search: "/search",
-  Account: "/account",
-  Cart: "/cart",
-}
+const SideMenu = () => {
+    const [isOpen, setIsOpen] = useState(false)
 
-const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
-  const toggleState = useToggleState()
+    return (
+        <div className="h-full flex items-center">
+            <button
+                onClick={() => setIsOpen(true)}
+                className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
+            >
+                <Menu />
+            </button>
 
-  return (
-    <div className="h-full">
-      <div className="flex items-center h-full">
-        <Popover className="h-full flex">
-          {({ open, close }) => (
-            <>
-              <div className="relative flex h-full">
-                <Popover.Button
-                  data-testid="nav-menu-button"
-                  className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
-                >
-                  Menu
-                </Popover.Button>
-              </div>
+            <SlideOver isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                <Close onClick={() => setIsOpen(false)} />
+                <NavLinkHighlighter />
 
-              <Transition
-                show={open}
-                as={Fragment}
-                enter="transition ease-out duration-150"
-                enterFrom="opacity-0"
-                enterTo="opacity-100 backdrop-blur-2xl"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 backdrop-blur-2xl"
-                leaveTo="opacity-0"
-              >
-                <Popover.Panel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-30 inset-x-0 text-sm text-ui-fg-on-color m-2 backdrop-blur-2xl">
-                  <div
-                    data-testid="nav-menu-popup"
-                    className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded justify-between p-6"
-                  >
-                    <div className="flex justify-end" id="xmark">
-                      <button data-testid="close-menu-button" onClick={close}>
-                        <XMark />
-                      </button>
-                    </div>
-                    <ul className="flex flex-col gap-6 items-start justify-start">
-                      {Object.entries(SideMenuItems).map(([name, href]) => {
-                        return (
-                          <li key={name}>
-                            <LocalizedClientLink
-                              href={href}
-                              className="text-3xl leading-10 hover:text-ui-fg-disabled"
-                              onClick={close}
-                              data-testid={`${name.toLowerCase()}-link`}
-                            >
-                              {name}
-                            </LocalizedClientLink>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                    <div className="flex flex-col gap-y-6">
-                      <div
-                        className="flex justify-between"
-                        onMouseEnter={toggleState.open}
-                        onMouseLeave={toggleState.close}
-                      >
-                        {regions && (
-                          <CountrySelect
-                            toggleState={toggleState}
-                            regions={regions}
-                          />
-                        )}
-                        <ArrowRightMini
-                          className={clx(
-                            "transition-transform duration-150",
-                            toggleState.state ? "-rotate-90" : ""
-                          )}
-                        />
-                      </div>
-                      <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} shop.klassenhelfer.de, Alle Rechte vorbehalten.
-                      </Text>
-                    </div>
-                  </div>
-                </Popover.Panel>
-              </Transition>
-            </>
-          )}
-        </Popover>
-      </div>
-    </div>
-  )
+                <ul aria-label="Links zu Klassenhelfer Unterseiten">
+                    <li className="text-[#333] text-2xl font-semibold mb-6">
+                        <a href={`${process.env.NEXT_PUBLIC_WEBSITE_BASE_URL}`}
+                           data-testid="nav-home-link"
+                           onClick={() => setIsOpen(false)}>
+                            Startseite
+                        </a>
+                    </li>
+                    <li className="text-[#333] text-2xl font-semibold mb-6">
+                        <a href={`${process.env.NEXT_PUBLIC_WEBSITE_BASE_URL}/tools`}
+                           data-testid="nav-tool-link"
+                           onClick={() => setIsOpen(false)}>
+                            Online-Tools
+                        </a>
+                        <ul className="pt-4 pl-4" aria-label="Untermenü Online-Tools">
+                            <li className="text-lg flex items-center gap-2">
+                                <CaretRight />
+                                <a href={`${process.env.NEXT_PUBLIC_WEBSITE_BASE_URL}/suchsel`}
+                                   data-testid="nav-suchsel-link"
+                                   onClick={() => setIsOpen(false)}>
+                                    Suchsel Generator
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li className="text-[#333] text-2xl font-semibold mb-6" data-route="">
+                        <LocalizedClientLink href="/" data-testid="nav-products-link" onClick={() => setIsOpen(false)}>
+                            Alle Produkte
+                        </LocalizedClientLink>
+                    </li>
+                    <li className="text-[#333] text-2xl font-semibold mb-6" data-route="/account">
+                        <LocalizedClientLink href="/account" data-testid="nav-account-link" onClick={() => setIsOpen(false)}>
+                            Account
+                        </LocalizedClientLink>
+                    </li>
+                </ul>
+            </SlideOver>
+        </div>
+    )
 }
 
 export default SideMenu

@@ -81,7 +81,7 @@
 
 @layer components {
   .min-height {
-    @apply min-h-[calc(100vh-7.563rem)] py-12
+    @apply py-6 md:min-h-[calc(100vh-7.563rem)] md:py-12
   }
 
   .content-container {

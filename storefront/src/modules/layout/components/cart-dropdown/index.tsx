@@ -79,18 +79,16 @@ const CartDropdown = ({
     >
       <Popover className="relative h-full">
         <Popover.Button className="h-full">
-          <li>
-            <LocalizedClientLink
-                href="/cart"
-                className={`h-9 flex items-center gap-2 rounded-full cursor-pointer px-3 border ${totalItems > 0 ? "bg-primary border-primary" : "bg-white"}`}
-                data-testid="nav-cart-link"
-            >
-              <ShoppingCart color={totalItems > 0 ? "#fff" : "#333"}/>
-              {totalItems > 0 && (
-                  <span className="block text-sm font-bold text-white">{totalItems}</span>
-              )}
-            </LocalizedClientLink>
-          </li>
+          <LocalizedClientLink
+              href="/cart"
+              className={`h-9 flex items-center gap-2 rounded-full cursor-pointer px-3 border ${totalItems > 0 ? "bg-primary border-primary" : "bg-white"}`}
+              data-testid="nav-cart-link"
+          >
+            <ShoppingCart color={totalItems > 0 ? "#fff" : "#333"}/>
+            {totalItems > 0 && (
+                <span className="block text-sm font-bold text-white">{totalItems}</span>
+            )}
+          </LocalizedClientLink>
         </Popover.Button>
         <Transition
           show={cartDropdownOpen}
