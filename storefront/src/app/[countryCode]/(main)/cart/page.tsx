@@ -7,7 +7,7 @@ import { getCustomer } from "@lib/data/customer"
 
 export const metadata: Metadata = {
   title: "Einkaufswagen",
-  description: "Siehe dir deinen Einkaufswagen an",
+  description: "Siehe dir deinen Einkaufswagen an.",
 }
 
 const fetchCart = async () => {

@@ -5,8 +5,8 @@ import { notFound } from "next/navigation"
 import { listOrders } from "@lib/data/orders"
 
 export const metadata: Metadata = {
-  title: "Orders",
-  description: "Overview of your previous orders.",
+  title: "Bestellungen",
+  description: "Übersicht all Ihrer bisherigen Bestellungen.",
 }
 
 export default async function Orders() {
