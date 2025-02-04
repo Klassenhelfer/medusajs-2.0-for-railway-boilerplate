@@ -24,7 +24,7 @@ const StoreTemplate = ({
             className="content-small-container min-height"
             data-testid="category-container"
         >
-          <MegaDeal />
+          {false && (<MegaDeal />)}
 
           <div className="flex gap-6 flex-col small:flex-row small:items-start">
             {false && (<RefinementList sortBy={sort} />)}
