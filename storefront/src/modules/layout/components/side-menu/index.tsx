@@ -59,6 +59,11 @@ const SideMenu = () => {
                             Account
                         </LocalizedClientLink>
                     </li>
+                    <li className="text-[#333] text-2xl font-semibold mb-6" data-route="/cart">
+                        <LocalizedClientLink href="/cart" data-testid="nav-cart-link" onClick={() => setIsOpen(false)}>
+                            Einkaufswagen
+                        </LocalizedClientLink>
+                    </li>
                 </ul>
             </SlideOver>
         </div>
